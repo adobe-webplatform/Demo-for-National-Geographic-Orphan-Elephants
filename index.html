@@ -1,0 +1,1192 @@
+<!doctype html>
+<!--
+Copyright (c) 2013 Adobe Systems Incorporated. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Elephant Orphans</title>
+
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+				font-size: 1.1rem;
+				line-height: 1.9;
+				text-align: justify;
+				/*font-family: Georgia, "Times New Roman", Times, serif;*/
+				/*font-family: gentium-basic, sans-serif;*/
+				font-family: merriweather, serif;
+				color: #333;
+				overflow-x: hidden;
+			}
+			
+			article{
+				background: #fefefe;
+			}
+			
+			p{
+				margin: 0;
+				text-indent: 2rem;
+			}
+			
+			p.first{
+				text-indent: 0;
+			}
+			
+			b{
+				display: inline-block;
+				margin-top: 2rem;
+				margin-left: -4rem;
+				text-transform: uppercase;
+				font-size: 1rem;
+			}
+			
+			h1{
+				margin: 0;
+				padding: 1rem .5rem;
+				padding-left: 10rem;
+				font-weight: 100;
+				font-size: 6rem;
+				line-height: 1.2;
+				color: white;
+				text-shadow: 0px 0px 20px rgba(0, 0, 0, 1);
+			}
+			
+			#loader{
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background: white;
+				z-index: 1000;
+			}
+			
+			#content{
+				-webkit-flow-into: story;
+			}
+			
+			#content2{
+				-webkit-flow-into: story2;
+			}
+			
+			.char3{
+				margin-left: -.15em;
+			}
+
+			.byline{
+				margin: 2rem 0;
+				font-family: Arial, Verdana, Helvetica, sans-serif;
+				text-transform: uppercase;
+				font-size: 1rem;
+				font-weight: bold;
+			}
+			
+			.subtitle{
+				color: rgb(196, 182, 127);
+			}
+
+			.region{
+				-webkit-flow-from: story;
+				-webkit-widows: 3;
+				-orphans-widows: 3;
+			}
+			
+			.region2{
+				-webkit-flow-from: story2;
+				-webkit-widows: 3;
+				-orphans-widows: 3;
+			}
+
+			.page{
+				position: relative;
+				height: 100vh;
+				padding: 1rem;
+				box-sizing: border-box;
+			}
+			
+			.right-page{
+				padding-top: 0;
+				padding-bottom: 0;
+				height: 300vh;
+			}
+			
+			.right-page .column{
+				/*height: 300vh;*/
+				height: 290vh;
+			}
+
+			.half-page{
+				position: relative;
+				height: 50vh;
+				padding: 1rem;
+				box-sizing: border-box;
+			}
+			
+			.three-quart-page{
+				position: relative;
+				height: 75vh;
+				padding: 1rem;
+				box-sizing: border-box;				
+			}
+			
+			.quart-page{
+				position: relative;
+				height: 25vh;
+				padding: 1rem;
+				box-sizing: border-box;
+			}
+
+			.column{
+				height: 90vh;
+				width: 35rem;
+				padding-left: 10rem;
+				padding-top: 2rem;
+				padding-bottom: 2rem;
+			}
+
+			.half-column{
+				height: 45vh;
+				width: 35rem;
+				padding-left: 10rem;
+			}
+			
+			.quart-column{
+				height: 20vh;
+				width: 35rem;
+				padding-left: 10rem;
+			}
+
+			.last{
+				height: auto;
+			}
+
+			.image{
+				/*opacity: 0.2;*/
+				-webkit-filter: sepia(1);
+				-webkit-transition: -webkit-filter 2s ease-out;
+			}
+			
+			.image.in{
+				-webkit-filter: none;
+			}
+			
+			.image.right{
+				position: absolute;
+				left: 50rem;
+				top: 50%;
+				margin-top: -50vh;
+				height: 100vh;
+				width: 50vw;
+			}
+			
+			.vertical-center{
+				display: table-cell;
+				vertical-align: middle;
+			}
+
+			#cover{
+				padding: 0;
+				background-color: black;
+				background-image: url(images/cover.jpg);
+				background-size: contain;
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				overflow: hidden;
+			}
+			
+			#mapContainer{
+				position: relative;
+			}
+			
+			#mapCanvas{
+				height: 100vh;
+				width: 100vw;
+				background: #ccc;
+			}
+
+			#img1{
+				background-image: url(images/img1.jpg);
+				background-size: cover;
+			}
+
+			#img2{
+				background-image: url(images/img2.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+
+			#img3{
+				background-image: url(images/img3.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+
+			#img4{
+				background-image: url(images/img4.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+			
+			#img5{
+				background-image: url(images/img5.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+			
+			#img6{
+				background-image: url(images/img6.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+			
+			#img7{
+				background-image: url(images/img7.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+			
+			#img8{
+				background-image: url(images/img8.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+			
+			#img9{
+				background-image: url(images/img9.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+			
+			#img10{
+				background-image: url(images/img10.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+			
+			#img11{
+				background-image: url(images/img11.jpg);
+				background-size: cover;
+				background-position: center;
+			}
+			
+			aside{
+				position: absolute;
+				top: 1rem;
+				margin-left: 50rem;
+				padding-top: 2rem;
+				font-size: .8rem;
+				width: 15rem;
+				text-align: left;
+			}
+			
+			figure{
+				padding: 0;
+				margin: 0;
+			}
+			
+			h3{
+				margin-top: 0;
+			}
+			
+			h4{
+				margin: 0;
+				display: inline-block;
+				font-size: 1rem;
+			}
+			
+			#mapLegend{
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				padding: 1rem;
+				background: white;
+				min-height: 50px;
+				min-width: 100px;
+				z-index: 100;
+				font-size: .8rem;
+			}
+			
+			#mapCopy{
+				display: none;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				color: #545D0E;
+				pointer-events: none;
+			}
+			
+			.legend-texture{
+				display: inline-block;
+				width: 20px;
+				height: 15px;
+				margin: 0 1rem;
+				border: 2px solid rgba(0, 0, 0, 0);
+			}
+			
+			.legend-dark-orange{
+				background: #e4ac5c;
+			}
+			
+			.legend-orange{
+				background: #e8d090;
+			}
+			
+			.legend-protected{
+				border: 2px solid #888b53;
+				background-color: #c5bc78;
+			}
+			
+			.legend-cropland{
+				background: url(images/pattern.jpg);
+			}
+			
+			.legend-elephant{
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				background: url(images/elephant.jpg);
+				background-position: center;
+				background-size: contain;
+				margin-right: 1rem;
+			}
+			
+			.map-label{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				font-weight: bold;
+			}
+			
+			.map-label--kenya{
+				-webkit-transform: translate(100px, -150px);
+			}
+			
+			.map-label--nairobinursery{
+				-webkit-transform: translate(-100px, 130px);
+			}
+			
+			.map-label--nairobi{
+				-webkit-transform: translate(-100px, 100px);
+			}
+			
+			.map-label--kisumu{
+				-webkit-transform: translate(-270px, 0px);
+			}
+			
+			.map-label--meru{
+				-webkit-transform: translate(-30px, -20px);
+			}
+			
+			.map-label--tsavo{
+				-webkit-transform: translate(50px, 220px);
+			}
+			
+			.map-label--ithumba{
+				-webkit-transform: translate(50px, 170px);
+			}
+			
+			.right-page-after, .right-page-before{
+				display: none;
+			}
+			
+			.hidden-image{
+				display: none;
+			}
+			
+			@media screen and (max-width: 1200px) {
+				.right-page{
+					padding: 0;
+					height: 100vh;
+				}
+				
+				.right-page .image{
+					position: static;
+					width: 100vw;
+				}
+
+				.right-page .column{
+					display: none;
+				}
+				
+				.right-page-after, .right-page-before{
+					display: block;
+				}
+				
+				.image.right{
+					top: 0;
+					margin-top: 0;
+				}
+				
+				html{
+					font-size: .9rem;
+				}
+			}
+			
+			@media screen and (max-width: 1050px) {
+				aside{
+					display: none;
+				}
+			}
+			
+			@media screen and (max-width: 700px) {
+				.column, .half-column, .quart-column{
+					width: auto;
+					max-width: 30em;
+					padding: 1rem;
+				}
+				
+				h1{
+					font-size: 4rem;
+					padding: 1rem;
+				}
+			}
+
+			@media screen and (min-height: 1000px) {
+				#img11, #page16{
+					display: none;	
+				}
+			}
+
+			@media screen and (min-height: 1060px) {
+				#page15{
+					display: none;
+				}
+			}
+
+			@media screen and (min-height: 1110px) {
+				#img9, #page14, #img10{
+					display: none;
+				}
+			}
+
+			@media screen and (min-height: 1270px) {
+				#img9, #page14, #img10{
+					display: none;
+				}
+			}
+
+			@media screen and (min-height: 1395px) {
+				#img8, #img11, #img10, #page12, #page13{
+					display: none;
+				}
+			}
+			
+		</style>
+	</head>
+	<body>
+
+		<article class="story">
+			<div id="cover" class="three-quart-page">
+				<h1>SAVING BABIES</h1>
+			</div>
+			<div class="quart-page">
+				<div class="quart-column vertical-center">
+					<div class="byline">
+						By CHARLES SIEBERT<br/>
+						PHOTOGRAPHS BY MICHAEL NICHOLS
+					</div>
+				</div>
+			</div>
+			<div id="page1" class="page">
+				<div class="column region"></div>
+				<aside>
+					<figure>
+						<img src="images/video.jpg" width="300px">
+					</figure>
+					<h3>How to Raise a Baby Elephant</h3>
+					Watch a video of the 
+					elephant keepers caring 
+					for the orphan babies.
+				</aside>
+			</div>
+			<div id="img1" class="page image"></div>
+			<div id="page2" class="page">
+				<div class="column region"></div>
+				<aside>
+					Charles Siebert wrote about efforts to preserve the diversity of our food supply in the July issue. Michael Nichols is an editor at large for the mag­azine. His upcoming elephant book is Earth to Sky.
+				</aside>
+			</div>
+			<div id="img3" class="page image">
+				<figcaption></figcaption>
+			</div>
+			<div id="page4" class="page right-page-before">
+				<div class="column region"></div>
+			</div>
+			<div id="page5" class="page right-page">
+				<div class="column region"></div>
+				<div id="img2" class="image right">
+					<figcaption></figcaption>
+				</div>
+			</div>
+			<div id="page6" class="page right-page-after">
+				<div class="column region"></div>
+			</div>
+			<div id="img4" class="page image">
+				<figcaption></figcaption>
+			</div>
+			<div id="page7" class="page">
+				<div class="column region"></div>
+			</div>
+			<div id="img5" class="page image"></div>
+			<div id="page8" class="page">
+				<div class="column region"></div>
+			</div>
+			<div id="img6" class="page image">
+				<figcaption></figcaption>
+			</div>
+			<div id="page9" class="page">
+				<div class="column region"></div>
+			</div>
+			<div id="mapContainer">
+				<div id="mapLegend">
+					<h4><div class="legend-elephant"></div>Rescue Site</h4>
+					<div>
+						Where the trust's living orphans were found.
+					</div>
+					<table>
+						<tr>
+							<td><div class="legend-texture legend-dark-orange"></div> 2007 Range</td>
+							<td><div class="legend-texture legend-protected"></div>Protected area</td>
+						</tr>
+						<tr>
+							<td><div class="legend-texture legend-orange"></div>1979 Range</td>
+							<td><div class="legend-texture legend-cropland"></div>Cropland</td>
+						</tr>
+					</table>
+				</div>
+				<div id="mapCopy">
+
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 width="100%" height="100%" viewBox="0 0 826 899" xml:space="preserve">
+					<g>
+						<polyline fill="none" stroke="#58595B" stroke-width="0.5" points="376.554,501.218 337.385,501.218 337.385,477.861 "/>
+						<polyline fill="none" stroke="#555D0E" stroke-width="0.5" points="366.013,381.03 366.013,348.005 328.724,348.005 "/>
+						<line fill="none" stroke="#555D0E" stroke-width="0.5" x1="284.174" y1="625.542" x2="306.036" y2="625.542"/>
+						<line fill="none" stroke="#000000" stroke-width="0.5" x1="489.99" y1="908.643" x2="489.99" y2="863.209"/>
+						<line fill="none" stroke="#555D0E" stroke-width="0.5" x1="134.32" y1="228.138" x2="134.32" y2="253.965"/>
+						<line fill="none" stroke="#555D0E" stroke-width="0.5" x1="329.845" y1="747.422" x2="329.845" y2="771.175"/>
+						<line fill="none" stroke="#939598" stroke-width="0.36" x1="54.833" y1="-200.264" x2="54.833" y2="-189.879"/>
+						<line fill="none" stroke="#939598" stroke-width="0.36" x1="8.933" y1="-149.306" x2="-2.819" y2="-149.306"/>
+						<line fill="none" stroke="#939598" stroke-width="0.36" x1="657.095" y1="-49.216" x2="657.095" y2="-38.829"/>
+						<line fill="none" stroke="#939598" stroke-width="0.36" x1="800.272" y1="457.157" x2="788.525" y2="457.157"/>
+						<g>
+							<g>
+								<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="3.273" y1="851.238" x2="3.273" y2="838.662"/>
+								<polyline fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" points="3.273,844.966 98.053,844.966 
+									98.053,838.662"/>
+									<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="32.656" y1="851.167" x2="32.656" y2="844.966"/>
+									<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="62.289" y1="851.243" x2="62.289" y2="845.042"/>
+									<line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="50.338" y1="844.966" x2="50.338" y2="838.662"/>
+							</g>
+							<text transform="matrix(1.1313 0 0 1 -0.7773 835.5557)"><tspan x="0" y="0" font-family="'AGBookPro-Regular'" font-size="12.2066">0 </tspan><tspan x="8.849" y="0" font-family="'AGBookPro-Regular'" font-size="10.986">mi</tspan></text>
+							<text transform="matrix(1.1313 0 0 1 90.8106 835.4434)" font-family="'AGBookPro-Regular'" font-size="12.2066">50</text>
+							<text transform="matrix(1.1313 0 0 1 -0.8613 862.834)"><tspan x="0" y="0" font-family="'AGBookPro-Regular'" font-size="12.2066">0 </tspan><tspan x="8.849" y="0" font-family="'AGBookPro-Regular'" font-size="10.986">km</tspan></text>
+							<text transform="matrix(1.1313 0 0 1 55.0782 862.6504)" font-family="'AGBookPro-Regular'" font-size="12.2066">50</text>
+						</g>
+						<text transform="matrix(1.1311 0 0 1 483.9903 485.6211)"><tspan x="0" y="0" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">KORA N.P.</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 432.8731 151.5181)"><tspan x="0" y="0" fill="#555D0E" font-family="'OpenSans'" font-size="15.8686">MARSABIT</tspan><tspan x="-0.381" y="17.089" fill="#555D0E" font-family="'OpenSans'" font-size="15.8686">NATIONAL</tspan><tspan x="5.411" y="34.179" fill="#555D0E" font-family="'OpenSans'" font-size="15.8686">RESERVE</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 68.4009 269.0445)"><tspan x="0" y="0" fill="#555D0E" font-family="'OpenSans'" font-size="15.8686">SOUTH TURKANA</tspan><tspan x="-6.966" y="17.089" fill="#555D0E" font-family="'OpenSans'" font-size="15.8686">NATIONAL RESERVE</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 483.3252 748.3125)"><tspan x="0" y="0" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">TSAVO</tspan><tspan x="6.347" y="17.089" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">EAST</tspan><tspan x="-11.83" y="34.179" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">NATIONAL</tspan><tspan x="5.728" y="51.268" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">PARK</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 410.5303 909.9941)"><tspan x="0" y="0" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">TSAVO</tspan><tspan x="0" y="17.089" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">    WEST</tspan><tspan x="0" y="34.179" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">         N.P.</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 290.9781 727.3506)"><tspan x="0" y="0" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">AMBOSELI</tspan><tspan x="22.129" y="17.089" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">N.P.</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 63.8511 613.0439)"><tspan x="0" y="0" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">MASAI MARA</tspan><tspan x="8.736" y="17.089" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">NATIONAL</tspan><tspan x="15.353" y="34.179" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">RESERVE</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 250.459 353.3999)"><tspan x="0" y="0" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">SAMBURU</tspan><tspan x="-2.444" y="17.089" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">NATIONAL</tspan><tspan x="10.791" y="34.179" fill="#454D03" font-family="'OpenSans'" font-size="15.8686">RESERVE</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 305.8535 630.4561)" fill="#4D5509" font-family="'OpenSans'" font-size="15.8686">NAIROBI N.P.</text>
+						<g>
+							<text transform="matrix(1.1311 0 0 1 376.5952 433.2954)" font-family="'OpenSans'" font-size="17.0893">Meru</text>
+						</g>
+						<text transform="matrix(1.1311 0 0 1 650.8818 -53.5483)" fill="#939598" font-family="'OpenSans'" font-size="24.4133">40°</text>
+						<text transform="matrix(1.1311 0 0 1 803.9824 461.2315)" fill="#939598" font-family="'OpenSans'" font-size="24.4133">0°</text>
+						<text transform="matrix(1.1311 0 0 1 48.5274 -202.9556)"><tspan x="0" y="0" fill="#939598" font-family="'OpenSans'" font-size="24.4133">35°</tspan><tspan x="32.811" y="0" fill="#939598" font-family="'OpenSans'" font-size="29.2959">E</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 -27.7949 -145.4287)"><tspan x="0" y="0" fill="#939598" font-family="'OpenSans'" font-size="24.4133">5°</tspan><tspan x="20.287" y="0" fill="#939598" font-family="'OpenSans'" font-size="29.2959">N</tspan></text>
+						<path fill="none" d="M629.022,523.59c16.223,24.764,21.792,42.387,26.767,71.752"/>
+						<text transform="matrix(0.4469 1.0229 -0.9209 0.4161 641.5604 545.427)" fill="#829BA1" font-family="'OpenSans'" font-size="15.8909">Tana</text>
+						<g>
+							<path fill="none" d="M566.155,821.985c0,0,59.475,2.77,92.863,9.222"/>
+
+								<text transform="matrix(1.1282 0.0814 -0.072 0.9974 586.4746 823.1709)" fill="#728E94" font-family="'OpenSans'" font-size="15.8686">Galana</text>
+						</g>
+						<text transform="matrix(1.1311 0 0 1 490.1475 694.4805)"><tspan x="0" y="0" fill="#58595B" font-family="'OpenSans'" font-size="15.8686">Ithumba</tspan><tspan x="0" y="14.648" fill="#58595B" font-family="'OpenSans'" font-size="15.8686">3,428 ft</tspan><tspan x="0" y="29.296" fill="#58595B" font-family="'OpenSans'" font-size="15.8686">1,045 m</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 378.7412 507.0713)"><tspan x="0" y="0" fill="#58595B" font-family="'OpenSans'" font-size="15.8686">Mt. Kenya</tspan><tspan x="0" y="14.648" fill="#58595B" font-family="'OpenSans'" font-size="15.8686">17,057 ft</tspan><tspan x="0" y="29.296" fill="#58595B" font-family="'OpenSans'" font-size="15.8686">5,199 m</tspan></text>
+						<g>
+							<text transform="matrix(1.1311 0 0 1 191.5381 457.2285)" fill="#58595B" font-family="'OpenSans'" font-size="15.8686">LAIKIPIA</text>
+						</g>
+						<text transform="matrix(1.1311 0 0 1 210.5757 638.4248)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="19.5306">Nairobi</tspan><tspan x="-12.519" y="19.53" font-family="'OpenSans'" font-size="19.5306">Elephant</tspan><tspan x="-2.949" y="39.062" font-family="'OpenSans'" font-size="19.5306">Nursery</tspan></text>
+						<g>
+							<text transform="matrix(1.1311 0 0 1 486.7989 925.4414)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="19.5306" letter-spacing="-0.884">Voi</tspan><tspan x="0" y="19.53" font-family="'OpenSans'" font-size="19.5306">Rehabilitation</tspan><tspan x="0" y="39.062" font-family="'OpenSans'" font-size="19.5306">Centre</tspan></text>
+						</g>
+						<text transform="matrix(1.1311 0 0 1 391.5752 676.4629)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="19.5306">Ithumba</tspan><tspan x="-44.333" y="19.53" font-family="'OpenSans'" font-size="19.5306">Rehabilitation</tspan><tspan x="14.961" y="39.062" font-family="'OpenSans'" font-size="19.5306">Centre</tspan></text>
+						<g>
+							<text transform="matrix(1.1311 0 0 1 420.3252 821.9678)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="17.0893" letter-spacing="-0.884">Tsavo</tspan></text>
+						</g>
+						<g>
+							<text transform="matrix(1.1311 0 0 1 33.4268 479.5723)" font-family="'OpenSans'" font-size="17.0893">Kisumu</text>
+						</g>
+						<text transform="matrix(1.1311 0 0 1 279.5899 603.1699)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="17.0893">Nairobi</tspan></text>
+						<text transform="matrix(1.1311 0 0 1 418.6866 318.7163)" font-family="'OpenSans'" font-size="34.1786" letter-spacing="23.871">KENYA</text>
+					</g>
+					</svg>
+					
+				</div>
+				<canvas id="mapCanvas"></canvas>
+			</div>
+			<div id="page10" class="page">
+				<div class="column region"></div>
+			</div>
+			<div id="img7" class="page image">
+				<figcaption></figcaption>
+			</div>
+			<div id="page11" class="page">
+				<div class="column region"></div>
+			</div>
+			<div id="img8" class="page image"></div>
+			<div id="page12" class="page right-page-before">
+				<div class="column region"></div>
+			</div>
+			<div id="page13" class="page right-page">
+				<div class="column region"></div>
+				<div id="img9" class="image right"></div>
+			</div>
+			<div id="page14" class="page right-page-after">
+				<div class="column region"></div>
+			</div>
+			<div id="img10" class="page image">
+				<figcaption></figcaption>
+			</div>
+			<div id="page15" class="page">
+				<div class="column region"></div>
+			</div>
+			<div id="img11" class="page image">
+				<figcaption></figcaption>
+			</div>
+			<div id="page16" class="page">
+				<div class="column region last"></div>
+			</div>
+		</article>
+
+		    <div id="content" class="hyphenate">
+                    <p class="first">
+						<span class="subtitle">Along the northern rim of Kenya’s Nairobi National Park, a mysterious array of brightly colored wool</span> blankets can be seen draped over the gnarled branches of some of the forest’s upwardly braiding croton trees. Set against the region’s otherwise drab browns and greens, the hanging blankets could be construed as remnants of some
+						ancient tribal ritual—until shortly before five each evening, when their function as part of a new interspecies experiment becomes apparent.
+					</p>
+					<p>
+						Off in the distance a few upright figures in bright green coats and crumpled white safari hats appear, calling out names in trilling, high-pitched voices: “Kalama!” “Kitirua!” “Olare!” All at once baby elephants emerge from the brush, a straggled procession of 18 flap-eared brown heads, their long trunks steering their bulbous heft with a heavily hypnotic grace. They come to rest beneath the color-draped trees, where the keepers tie a blanket around each one for warmth before resuming the trek home.
+					</p>
+					<p>	
+						Home is the Nairobi nursery of the David Sheldrick Wildlife Trust, the world’s most successful orphan-elephant rescue and rehabilitation center. The nursery takes in orphan elephants from all over Kenya, many victims of poaching or human-wildlife conflict, and raises them until they are no longer milk dependent. Once healed and stabilized at the nursery, they are moved more than a hundred miles southeast to two holding centers in Tsavo National Park. There, at their own pace, which can be up to eight to ten years, they gradually make the transition back into the wild. The program is a cutting-edge experiment in cross-species empathy that only the worst extremes of human insensitivity could have necessitated. 
+					</p>
+					<p>
+						These are sad and perilous days for the world’s largest land animal. Once elephants roamed the Earth like waterless whales, plying ancient migratory routes ingrained in their prodigious memories. Now they’ve been backed into increasingly fragmented territories. When not being killed for their tusks or for bush meat, they are struggling against loss of habitat due to human population pressures and drought. A 1979 survey of African elephants estimated a population of about 1.3 million. About 500,000 remain. In Asia an estimated 40,000 are left in the wild. And yet even as the elephant population dwindles, the number of human-elephant conflicts rises. In Africa, reports of ele­phants and villagers coming into conflict with each other appear almost daily. 
+					</p>
+					<p>
+						A recent arrival at the Nairobi nursery was an elephant named Murka, rescued near Tsavo National Park with a spear lodged deep between her eyes and gaping spear and axe wounds along her back and sides. The spear had penetrated ten inches, rupturing her sinuses, which prevented her from using her trunk to drink. Her deep wounds were filled with maggots. Most likely orphaned by poachers who killed her mother for profit, the one-year-old baby is believed to have been subsequently attacked by local Maasai tribesmen who were angry about losing their traditional grazing land to the park. A mobile vet unit was able to tranquilize her, clean her wounds, and extract the spear. 
+					</p>
+					<p>
+						The plight of elephants has become so dire that their greatest enemy—humans—is also their only hope, a topsy-turvy reality that moved a woman named Daphne Sheldrick to establish the nursery back in 1987. Sheldrick is fourth-generation Kenya-born and has spent the better part of her life tending 
+						wild animals. Her husband was David Sheldrick, the renowned naturalist and founding warden of Tsavo East National Park who died of a heart attack in 1977. She’s reared abandoned baby buffalo, dik-diks, impalas, zebras, warthogs, and black rhinos, among others, but no creature has beguiled her more than elephants. 
+					</p>
+					<p>
+						Orphan infant elephants are a challenge to raise because they remain fully dependent on their mother’s milk for the first two years of life and partially so until the age of four. In the dec­ades the Sheldricks spent together in Tsavo, they never succeeded in raising an orphan younger than one because they couldn’t find a formula that matched the nutritional qualities of a mother’s milk. Aware that elephant milk is high in fat, they tried adding cream and butter to the mix, but found the babies had trouble digesting it and soon died. They then used a nonfat milk that the elephants could digest better, but eventually, after growing thinner and thinner on that formula, these orphans succumbed as well. Shortly before David’s death, the couple finally arrived at a precise mixture of human baby formula and coconut. This kept alive a three-week-old orphan named Aisha, helping her grow stronger every day. 
+					</p>
+					<p>
+						It was Aisha that revealed to Daphne another essential ingredient for raising an orphan ele­phant. When Daphne traveled to Nairobi to prepare for a daughter’s wedding, she left Aisha, then six months old, in the care of an assistant. In the two weeks she was away, Aisha stopped eating and died, apparently overcome with grief at the loss of another mother. “When Aisha died, I realized the mistake I’d made,” says Daphne, still pained by the memory. “She missed me too much. You mustn’t let an elephant get too attached to one person. It was stupid of me to think I could do it without substituting a larger family. I mean, I knew wild elephants. I had watched the elephants in Tsavo my entire married life, so I should have known better. One just has to look at an elephant group to understand the importance of family. So we have to replace what the elephant would have in the wild.”
+					</p>
+					<p>
+						<b>Any wild elephant group</b> is, in essence, one large and highly sensitive organism. Young ele­phants are raised within a matriarchal family of doting female caregivers, beginning with the birth mother and then branching out to include sisters, cousins, aunts, grandmothers, and established friends. These bonds endure over a life span that can be as long as 70 years. Young elephants stay close to their mothers and extended family members—males until they are about 14, females for life. When a calf is threatened or harmed, all the other elephants comfort and protect it.
+					</p>
+					<p>
+						This cohesiveness is enforced by a complex communication system. When close to each other, elephants employ a range of vocalizations, from low rumblings to high-pitched screams and trumpets, along with assorted visual signals. They express a range of emotions using their trunk, ears, head, and tail. When they need to communicate over longer distances, they use powerful low-frequency, rumbling calls that can be heard by others more than a mile away. 
+					</p>
+					<p>
+						After a death, family members show signs of grief and exhibit ritualistic behavior. Field biologists such as Joyce Poole, who has studied Africa’s elephants for more than 35 years, describe ele­phants trying to lift the dead body and covering it with dirt and brush. Poole once watched a female stand guard over her stillborn baby for three days, her head, ears, and trunk drooped in grief. Elephants may revisit the bones of the deceased for months, even years, touching them with their trunks and creating paths to visit the carcass.
+					</p>
+					<p>
+						What has amazed Sheldrick most since establishing the Nairobi nursery is how readily even severely traumatized babies begin to reweave the elaborate social fabric of the wild group. “They are born with a genetic memory and are extremely social animals,” she says. “They intuitively know to be submissive before elders, and the females are instinctively maternal, even from a very young age. Whenever we get a new baby here, the others will come around and lovingly put their trunks on its back to comfort it. They have such big hearts.”
+					</p>
+					<p>
+						Standing amid a group of orphans one afternoon as they browsed on croton tree branches, I was struck by their distinct personalities. Kalama, a female found at five weeks old in a water well in northern Samburu, was cheeky and playful. Kitirua, found abandoned at around 18 months old near a swamp in Amboseli National Park, was a recent arrival and still shy and aloof. Tano, a four-month-old suspected poaching victim from the Laikipia region of central Kenya, had become so close to the keepers that she kept pushing other orphans away out of jealousy. Yet another suspected poaching victim, Chemi Chemi, was a mischievous male elephant. “We call him al Qae­da,” explained Edwin Lusichi, the nursery’s head elephant keeper. “He’s always shoving us and the other orphan elephants around.”
+					</p>
+					<p>
+						It was as though I were hanging out with a group of precocious schoolkids vying to establish their standing and make an impression on the new kid on the playground. When I approached an achingly adorable two-month-old female named Sities, I soon found myself deposited in a nearby bush by the cracked-leather rump of another elephant, getting a parting stomp on my foot for good measure.
+					</p>
+					<p>
+						“That’s Olare,” Lusichi called out, gesturing toward the one-year-old that had just put me in my place. “She’s practicing to be a matriarch.”
+					</p>
+					<p>
+						When it was time to head toward the nursery stables, I positioned myself along one flank of the pachyderm procession. I’d started off toward the trees of blankets, when an elephant trunk suddenly struck my midsection with such force that I dropped to my knees.
+					</p>
+					<p>
+						“I forgot to warn you,” Lusichi said, helping me up with a broad smile. “Tumaren doesn’t like it when anyone walks ahead of her.” 
+					</p>
+					<p>
+						<b>Spend enough time</b> around elephants and it’s difficult not to anthropomorphize their behavior. “Elephants are very human animals,” says Sheldrick, sitting one afternoon on the back porch of her house at the edge of the nursery grounds, the wide, acacia-dotted plains of Nairobi National Park sprawling in the distance. “Their emotions are exactly the same as ours. They’ve lost their families, have seen their mothers slaughtered, and they come here filled with aggression—devastated, broken, and grieving. They suffer from nightmares and sleeplessness.”
+					</p>
+					<p>
+						What makes this particular moment in the fraught history of elephant-human relations so remarkable is that the long-accrued anecdotal evidence of the elephant’s extraordinary intelligence is being borne out by science. Studies show that structures in the elephant brain are strikingly similar to those in humans. MRI scans of an ele­phant’s brain suggest a large hippocampus, the component in the mammalian brain linked to memory and an important part of its limbic system, which is involved in processing emotions. The elephant brain has also been shown to possess an abundance of the specialized neurons known as spindle cells, which are thought to be associated with self-awareness, empathy, and social awareness in humans. Ele­phants have even passed the mirror test of self-recognition, something only humans, and some great apes and dolphins, had been known to do. 
+					</p>
+					<p>
+						This common neurobiology has prompted some scientists to explore whether young ele­phants that have experienced assaults on their psyches may be exhibiting signs of post-traumatic stress disorder (PTSD), just like orphaned children in the wake of war or genocide. Gay Bradshaw, a psychologist and the director of the Kerulos Center in Oregon, has brought the latest insights from human neuroscience and psychology to bear on startling field observations of elephant behavior. She suspects that some threatened elephant populations might be suffering from chronic stress and trauma brought on by human encroachment and killing. 
+					</p>
+					<p>
+						Before the international ivory trade ban in 1989, poaching took a steep toll on many ele­phant populations and in some instances significantly altered their social structure because poachers tended to target older elephants. Field biologists found that the number of older matriarchs, female caregivers, and bulls in vulnerable groups had fallen drastically. In Uganda, for instance, one study reported that many females between the ages of 15 and 25 had no close family members whatsoever. 
+					</p>
+					<p>
+						In the decades since the ban, some populations have stabilized, though most ele­phants remain threatened by human encroachment. As poaching has flared up in the past five years in the Congo Basin and large swaths of central and eastern Africa, many elephant families there have lost most of their adult females. Where such social upheaval exists, calves are being raised by ever more inexperienced females. An increasing number of young orphaned elephants, many of which have witnessed the death of a parent through culling or at the hands of poachers, are coming of age in the absence of the traditional support system. “The loss of older elephants,” says Bradshaw, “and the extreme psychological and physical trauma of witnessing the massacres of their family members interferes with a young elephant’s normal development.” 
+					</p>
+					<p>
+						Bradshaw speculates that this early trauma, combined with the breakdown in social structure, may account for some instances of aberrant elephant behavior that have been reported by field biologists. Between 1992 and 1997, for example, young male elephants in Pilanesberg Game Reserve in South Africa killed more than 40 rhinoceroses—an unusual level of aggression—and in some cases had attempted to mount them. The young elephants were adolescent males that had witnessed their families being shot in cullings at Kruger National Park—sanctioned killings to keep elephant populations under control. At that time it was common practice for such orphaned elephant babies to be tethered to the bodies of their dead relatives until they could be rounded up for translocation to new territories. Once moved to Pilanesberg, the orphans matured without the support of any adult males. “Young males often follow older, sexually active males around,” says Joyce Poole, “appearing to study what they do. These youngsters had no such role models.”
+					</p>
+					<p>
+						For Allan Schore, an expert on human trauma disorders at UCLA who has co-authored papers with Bradshaw, the behavior of these elephants conforms to a diagnosis of PTSD in humans. “A large body of research shows that the 
+						neurobiological mechanisms of attachment are found in many mammals, including humans and elephants,” he explains. “The emotional relationship between the mother and her offspring impacts the wiring of the infants’ developing brain. When early experiences are traumatic, there is a thinning down of the developing brain circuits, especially in areas that process emotional information and regulate stress. That means less resilience and an enduring deficit in aggression regulation, social communication, and empathy.”
+					</p>
+					<p>
+						One effort to repair the torn fabric of an ele­phant group lends further support to the idea that early trauma and a lack of role models can lead to aggression: After Joyce Poole suggested that park rangers in South Africa introduce six older bull elephants into Pilanesberg’s population of about 85 elephants, the aberrant behavior of the marauding adolescent males—and their premature hormonal changes—abruptly stopped. 
+					</p>
+					<p>
+						<b>If elephants can wound like us,</b> they can heal like us as well, perhaps more readily. With humans acting as stand-ins for their mothers, along with the help of the other nursery ele­phants, the majority of the orphans that survive recover to become fully functional wild elephants again. To date, Sheldrick’s nursery has successfully raised more than a hundred orphan elephants. They have returned to the wild in wary, halting, half measures at first, having become “homo-pachyderms,” caught between a deep devotion to their human caregivers and the irresistible call of their true selves. 
+					</p>
+					<p>
+						One evening during the dry season a huge group of wild elephants emerged from the bush to drink at the water trough at the Ithumba compound in Tsavo, one of two locations where the orphans transition to the wild. There were 25 to 30 elephants—massive, long-tusked bulls and matriarchs, adolescent males and females, some ex-orphans, and several newborn calves. Directly alongside the trough were the open-air stockades where the Ithumba orphans had already gathered for the night, staring over at their wild counterparts, which, between sips, stared back. The keepers and I were standing no more than 30 yards from the wild group, much closer than one usually would get. And the ele­phants were much closer to humans than wild ones normally venture. The dreamlike scene was dictated by the presence of the orphans and their conversations with the wild group. “They have let the wild ones know it is OK,” explained Benjamin Kyalo, Ithumba’s head elephant keeper. “The word is clearly being spread around Tsavo: Good humans. Good water. Let’s go!”
+					</p>
+					<p>
+						By day the keepers lead the orphans into the bush to browse. They deliver midday bottles of formula at a designated mud-bath venue. When a cluster of wild elephant heads appears in the distance, the keepers keep the milk-dependent orphans close, not allowing them to leave with the group. But by the age of five or seven, the orphans may go off with the wild ones. Some will stay out for a few nights before returning to the stockades, as though they’d been away at a sleepover. Some will go for good, becoming full-fledged members of their own wild families. 
+					</p>
+					<p>
+						One orphan named Loijuk was so eager to join a wild group that she twice opened the Ithumba gate with her trunk and let herself out. Months after the second breakout she had become a member of a wild ex-orphan group. Another precocious orphan named Irima was just over three years old and still milk dependent when he insinuated himself into a wild group near Voi, the other stockade where orphans are introduced to the wild. After five days the Voi keepers heard a series of frantic, high-pitched elephant trumpets coming from the direction of an electrified fence. “Irima must have told the group that he still needed his milk and orphan family and wanted to go back, so Edo [a former orphan] escorted him home,” Voi’s head keeper, Joseph Sauni, recalls. “The keepers opened the gate, and Edo escorted Irima all the way back to the stockades. Edo drank some water from the well, ate some food, and took off again. Mission accomplished.”
+					</p>
+					<p>
+						Even fully “repatriated” orphans like Edo will return to the stockades to visit their human family. In December 2008 Emily, a matriarch that had been brought to the Nairobi nursery in 1993, showed up at the Voi stockades one afternoon with her group and a surprise guest. “She’d given birth the day before, about a mile away,” says Sauni. “She led the baby here to show us her newborn. We named her Eve.” 
+					</p>
+					<p>
+						<b>Back at the Nairobi Nursery</b> the baby ele­phants return for their six o’clock feeding, breaking into a full sprint once they see the line of keepers holding up huge bottles of milk before each of the stables. A major ruckus ensues when they arrive—some stable assignments have changed to make room for a new arrival, and elephants hate alterations to their routine. The nursery’s most veteran keeper, Mishak Nzim­bi—known as the “elephant whisperer” and the clear favorite of all the orphans—steps into the fray. Heeding little more than an upheld hand and one stern utterance, the residents settle into place, sucking down gallons of formula in seconds.
+					</p>
+					<p>
+						“The control the keepers have over these elephants, without even a stick or anything!” marvels Daphne’s younger daughter, Angela, the current executive director of the David Sheldrick Wildlife Trust. “It all stems from the elephants’ desire to please someone they love. It’s amazing and beautiful to see. With elephants you reap what you sow, and the way you get the most out of them is through love.”
+					</p>
+					<p>
+						We walk over to the stable marked Murka—the orphan that had been found with a spear lodged in her head. “Now look at her,” Daphne says, as Murka, with only the slightest indent in her forehead to show for her brutal ordeal, approaches the half-opened door of her stable and takes two of my fingers to suckle on. “The vets didn’t expect her to make it through the first night.”
+					</p>
+					<p>
+						“And she’s healed psychologically,” Angela adds. “She was one extremely traumatized little elephant when she first woke up, lashing out at everyone—and rightly so. But slowly she began to trust again, and after about a month she wasn’t just fine about people, she was seeking them out. And it wasn’t just our doing. She would never have recovered so quickly without the input of other elephants.”
+					</p>
+					<p>
+						All around us orphans and keepers are settling in for the night. Each elephant sleeps with a different keeper every night to prevent it from getting too attached to a particular person—and perhaps vice versa. Leaning on the stable door, Nzimbi, Murka’s overseer for the night, recalls first visiting the nursery 22 years earlier. He immediately asked Daphne for a job. “I understand these animals,” he says. “I love them so much.”
+					</p>
+					<p>
+						Directly above Murka’s straw-and-blanket bed is Nzimbi’s bunk, with a small radio perched by his pillow. I ask if he has an alarm clock to wake him for the elephants’ feedings.
+					</p>
+					<p>
+						“Oh no,” he says. “Every three hours you feel a trunk reach up and pull your blankets off. The elephants are our alarms.” <img src="images/ng-logo-yellow.svg" style="position: relative; top: .1em; height: 1em;">
+                    </p>
+            </div>
+
+			<div id="loader">
+			</div>
+
+			<img id="img-color-map" class="hidden-image" src="images/kenya_terrain_colormap2.jpg">
+			<img id="img-bump-map" class="hidden-image" src="images/kenya_terrain_bumpmap.jpg">
+
+			<script src="js/RequestAnimationFrame.js"></script>
+			
+			<script src="js/jquery.js"></script>
+			<script src="js/jquery.lettering.js"></script>
+			<script src="js/scrollMonitor.js"></script>
+			<script src="js/hyphenate.js"></script>
+			<script src="js/three.js"></script>
+			<script src="js/TweenMax.js"></script>
+
+			<script>
+				var renderer,
+					scene,
+					mesh,
+					container,
+					elephant,
+					canvasWatcher,
+					canvasVisible = false,
+					loadcount = 0;
+				
+				function imageLoad() {
+					loadcount += 1;
+					if (loadcount == 2) {
+						init();
+					}
+				}
+				
+				var img1 = new Image();
+				img1.src = "images/kenya_terrain_colormap2.jpg";
+				img1.onload = imageLoad;
+				
+				var img2 = new Image();
+				img2.src = "images/kenya_terrain_bumpmap.jpg";
+				img2.onload = imageLoad;
+				
+				function init() {
+					var scale = window.innerHeight / $('article').height();
+					
+					$contentClone = $('#content').clone();
+					$contentClone.attr('id', 'content2');
+					$('body').append($contentClone);
+
+					$("h1").lettering();
+					$('.story .image').each(addWatcher);
+					Hyphenator.run();
+					
+					canvasWatcher = scrollMonitor.create($('.story #mapCanvas'));
+					canvasWatcher.stateChange(handle_canvasWatcher_CHANGE);
+										
+					$(window).bind('resize', resize);
+					
+					setTimeout(function () {
+						setupScene();
+						resize();
+					}, 2000);
+				}
+				
+				function preload_COMPLETE() {
+					$('#loader').fadeOut();
+				}
+				
+				function handle_asset_LOADED(geometry, materials) {
+					var j, e,
+						//material = new THREE.MeshFaceMaterial(materials),
+						material = new THREE.MeshLambertMaterial({color: 0xD3691B, ambient: 0xD3691B}),
+						elephantPoints = [
+							{x: 0, y: 20, z: 0},
+							{x: -7, y: 21, z: 0},
+							{x: -18.3, y: 18.24, z: 0},
+							{x: -16.9, y: 18.14, z: 0},
+							{x: -17.6, y: 17.7, z: 0},
+							{x: -17.5, y: 15.24, z: 0},
+							{x: -10, y: 12, z: 0},
+							{x: -9.3, y: 11.5, z: 0},
+							{x: -12.5, y: 10, z: 0},
+							{x: -11.5, y: 9, z: 0},
+							{x: -19.6, y: -14.35, z: 0},
+							{x: -26.1, y: -11.95, z: 0},
+							{x: -26.7, y: -11, z: 0},
+							{x: -6.6, y: -3.75, z: 0},
+							{x: 3.4, y: -18.35, z: 0},
+							{x: -1.9, y: 8.5, z: 0},
+							{x: -0.5, y: 7.75, z: 0},
+							{x: 1.6, y: 2.35, z: 0},
+							{x: 2.3, y: 1.55, z: 0},
+							{x: 2.8, y: 0.45, z: 0},
+							{x: 3.9, y: -0.35, z: 0},
+							{x: -7.2, y: 10, z: 0},
+							{x: -6.5, y: 9.25, z: 0},
+							{x: -4.5, y: 12.15},
+							{x: -4.7, y: 11.15},
+							{x: -4.7, y: 10.25},
+							{x: -2.9, y: 1.45},
+							{x: -1.7, y: 1.45},
+							{x: -3.9, y: 1.15},
+							{x: 0.8, y: -21.45},
+							{x: -0.4, y: -22.15},
+							{x: 0.5, y: -22.75},
+							{x: 1.4, y: -21.95}, 
+							{x: -3.4, y: -21.65}, 
+							{x: -4.5, y: -22.25}, 
+							{x: -5.3, y: -21.85}, 
+							{x: -6.4, y: -22.05}, 
+							{x: -6.3, y: -21.25}, 
+							{x: -7.3, y: -21.75}, 
+							{x: -7.9, y: -21.55},
+							{x: -4, y: 3.45}, 
+							{x: -5.3, y: 3.85}, 
+							{x: -5.6, y: 7.05}, 
+							{x: -4.7, y: 6.75}, 
+							{x: -4.7, y: 6.05},
+							{x: -3.9, y: 6.15}, 
+							{x: -3.5, y: 6.55}, 
+							{x: -3, y: 6.15}, 
+							{x: -5.1, y: 5.05}, 
+							{x: -4.3, y: 5.35}, 
+							{x: -3.1, y: 5.35}, 
+							{x: -3, y: 5.95}, 
+							{x: -5, y: 5.05}, 
+							{x: -4.2, y: 5.05}, 
+							{x: -3.2, y: 4.95}, 
+							{x: -3, y: 5.45}, 
+							{x: -5.4, y: 4.15}, 
+							{x: -4.1, y: 3.45},
+							{x: -14.4, y: 6.55}, 
+							{x: -13.5, y: 6.04}, 
+							{x: -15.1, y: 6.04}, 
+							{x: -13.6, y: 5.35}, 
+							{x: -12.4, y: 4.65}, 
+							{x: -11, y: 4.05}, 
+							{x: -11.7, y: 3.25}, 
+							{x: -11.7, y: 2.85}, 
+							{x: -11.1, y: 2.85}, 
+							{x: -12.7, y: 3.05}, 
+							{x: -11.9, y: 2.55}, 
+							{x: -12.3, y: 2.15},
+							{x: -9.4, y: 2.94}, 
+							{x: -9.7, y: 2.15}, 
+							{x: -8.9, y: 2.04}, 
+							{x: -9.1, y: 1.45}, 
+							{x: -9, y: 0.25}, 
+							{x: -9.8, y: -0.05}, 
+							{x: -10.4, y: -0.85}, 
+							{x: -10.2, y: 0.05}, 
+							{x: -10.3, y: 0.85},
+							{x: 5.8, y: -23.95}, 
+							{x: 7.4, y: -24.35}, 
+							{x: 9.4, y: -25.35}, 
+							{x: 8, y: -25.75}, 
+							{x: 5.2, y: -24.85}, 
+							{x: 6.1, y: -25.15}, 
+							{x: 4, y: -25.15}, 
+							{x: 3.3, y: -25.45}, 
+							{x: 3.7, y: -25.65}, 
+							{x: 5.2, y: -25.95}, 
+							{x: 2.5, y: -26.45}, 
+							{x: 0.9, y: -26.35}, 
+							{x: 2.1, y: -26.95}, 
+							{x: 2.5, y: -27.45},
+							{x: 7.2, y: -26.65},
+							{x: 6.2, y: -27.95}, 
+							{x: 7.3, y: -27.95}, 
+							{x: 7.1, y: -28.55}, 
+							{x: 5.9, y: -29.05}, 
+							{x: 6.6, y: -29.25}, 
+							{x: 5.1, y: -29.25}, 
+							{x: 4.9, y: -29.05}, 
+							{x: 5.2, y: -28.35}, 
+							{x: 0.8, y: -28.05}, 
+							{x: -0.8, y: -28.35}, 
+							{x: -0.3, y: -27.75}, 
+							{x: -1.8, y: -27.25}, 
+							{x: -2.1, y: -27.95},
+							{x: 5.1, y: -28.35} 
+						];
+
+					for (j = 0; j < materials.length; j += 1) {
+						//materials[j].morphTargets = true;
+					}
+					
+					for (j = 0; j < elephantPoints.length; j += 1) {
+						e = new THREE.MorphAnimMesh(geometry, material);
+						e.position.set(elephantPoints[j].x, elephantPoints[j].y, 0);
+						e.rotation.x = 1.5;
+						e.rotation.y = Math.random() * 3.14;
+						e.scale.set(0.5, 0.5, 0.5);
+						container.add(e);
+					}
+					
+					/*
+					elephant = new THREE.MorphAnimMesh(geometry, material);
+					elephant.position.set(-7, 21, 0);
+					elephant.rotation.x = 1.5;
+					container.add(elephant);
+					*/
+				}
+				
+				function setupScene() {
+					renderer = new THREE.WebGLRenderer({canvas: $('.story #mapCanvas')[0], antialias:true});
+					renderer.setClearColor(0xffffff, 1);
+					scene = new THREE.Scene();
+					
+					container = new THREE.Object3D();
+					container.position.set(0, 0, -50);
+					container.rotation.z = 3.14;
+					container.rotation.x = 1;
+					scene.add(container);
+					
+					var colorMap = new THREE.Texture(img1);		
+					colorMap.needsUpdate = true;
+					
+					var bumpMap = new THREE.Texture(img2);
+					bumpMap.needsUpdate = true;
+										
+					var plane = new THREE.PlaneGeometry(80, 80, 100, 100);
+					var material = new THREE.MeshPhongMaterial({ambient: 0xfffffff, color: 0xffffff, specular: 0xffffff, shininess: 0, map: colorMap, bumpMap: bumpMap, bumpScale: .5, metal: false});
+					
+					mesh = new THREE.Mesh(plane, material);
+					container.add(mesh);
+					
+					var ambientLight = new THREE.AmbientLight(0x666666);
+					scene.add(ambientLight);
+					
+					var light = new THREE.SpotLight(0xcccccc);
+					light.target = mesh;
+					light.position.set(0, 0, -1);
+					light.intensity = 0.4;
+					light.angle = 1.5;
+					light.exponent = 1;
+					light.castShadow = true;
+					scene.add(light);
+					
+					var loader = new THREE.JSONLoader();
+					loader.load('js/elephant.js', handle_asset_LOADED.bind(this));	
+					
+					preload_COMPLETE();
+					
+					//$('.story #mapCanvas').bind('click', handle_CLICK);
+					$('.story #mapCanvas').bind('mousedown', handle_MOUSEDOWN);
+					$('.story #mapCanvas').bind('mouseup', handle_MOUSEUP);					
+				}
+				
+				function handle_rightImage_CLICK() {
+					if ($(this).css('width') !== window.innerWidth + 'px') {
+						$(this).css({'width': '100vw', 'left': '0'});
+					} else {
+						$(this).css({'width': '50vw', 'left': '50rem'});
+					}
+				}
+				
+				function handle_MOUSEDOWN(e) {
+					var scale = 20,
+						_x = e.pageX / scale, 
+						_y = -(e.pageY - $('.story #mapCanvas').offset().top) / scale;
+					
+					_x -= ($('.story #mapCanvas').width() / 2) / scale;
+					_y -= - 64 + ($('.story #mapCanvas').height() / 2) / scale;
+					
+					$('.story #mapCopy').hide();
+					TweenMax.killAll();
+					//new TweenMax.to(container.position, 1, {x: _x, y: _y, z: -20, onUpdate: draw});
+					new TweenMax.to(container.rotation, 1, {x: 1, onUpdate: draw});
+				}
+				
+				function handle_MOUSEUP(e) {
+					TweenMax.killAll();
+					new TweenMax.to(container.rotation, 1, {x: 0, onUpdate: draw});
+					new TweenMax.to(container.position, 1, {x: 0, y: 0, z: -40, onUpdate: draw, onComplete: function () {
+						$('.story #mapCopy').show();
+					}});
+				}
+				
+				function handle_CLICK(e) {
+					
+					var _x = e.pageX / 10, 
+						_y = -(e.pageY - $('.story #mapCanvas').offset().top) / 10;
+					
+					_x -= ($('.story #mapCanvas').width() / 2) / 10;
+					_y -= - 64 + ($('.story #mapCanvas').height() / 2) / 10;
+					
+					/*
+					console.log("{x: " + Math.round(_x * 100) / 100 + ", y: " + Math.round(_y * 100) / 100 + "},");
+					elephant.position.set(_x, _y, 0);
+					*/
+				}
+								
+				function startScene() {
+					if (container) {
+						new TweenMax.to(container.rotation, 2, {x: 0, ease: Quad.easeOut, onUpdate: draw, 
+							onComplete: function () {
+								new TweenMax.to(container.position, 1, {z: -40, ease: Quad.easeInOut, onUpdate: draw, 
+									onComplete: function (){
+										$('.story #mapCopy').show();
+									}
+								});
+							}
+						});
+					}
+				}
+				
+				function stopScene() {
+					TweenMax.killAll();
+					try{
+						container.position.set(0, 0, -50);
+						container.rotation.z = 3.14;
+						container.rotation.x = 1;
+						$('.story #mapCopy').hide();
+					} catch(e) {
+
+					}
+					
+				}
+				
+				function draw() {
+					if (typeof(camera) != 'undefined') {
+						renderer.render(scene, camera);
+					}
+				}
+				
+				function resize() {
+					var width = window.innerWidth,
+						height = window.innerHeight;
+
+					renderer.setSize(width, height);
+					camera = new THREE.PerspectiveCamera(1000, width / height, 1, 10000);
+					renderer.render(scene, camera);
+					
+					$('.page').css({'height': '100vh'});
+					
+					//console.log('resize');
+					if (window.innerWidth > 1200) {
+					//	console.log('larger..')
+						$('.right-page').css({'height': '300vh'});
+					}
+					
+					$('.page .region').each(function () {
+						var $this = $(this),
+							overset = $this[0].webkitRegionOverset;	
+						if (overset == 'empty') {
+							$this.parent().css({'height': '0vh'});
+						}
+					});
+				}
+				
+				function scroll() {
+					var $cover = $('#cover');
+					
+					if ($cover.css('height') !== "50vh") {
+						$cover.animate({'height': '50vh'});
+					}
+				}
+				
+				function handle_canvasWatcher_CHANGE() {
+					if (canvasWatcher.isInViewport) {
+						canvasVisible = true;
+						startScene();
+					} else {
+						stopScene();
+						canvasVisible = false;
+					}
+				}
+				
+				function addWatcher() {
+					var $this = $(this),
+						watcher = scrollMonitor.create($this);
+									
+					watcher.stateChange(handle_watcher_CHANGE);
+					
+					function handle_watcher_CHANGE() {
+						
+						if (watcher.isInViewport) {
+							$this.addClass('in');
+						} else if (watcher.isFullyInViewport) {
+							
+						} else if (watcher.isAboveViewport) {
+							$this.removeClass('in');
+							
+						} else if (watcher.isBelowViewport) {
+							$this.removeClass('in');
+						}
+					}
+				}
+				
+			</script>
+			<script src="//use.edgefonts.net/merriweather;open-sans.js"></script>
+	</body>
+</html>
