@@ -213,6 +213,7 @@ limitations under the License.
 			
 			#mapContainer{
 				position: relative;
+				display: none;
 			}
 			
 			#mapCanvas{
@@ -840,24 +841,27 @@ limitations under the License.
 				
 				function init() {
 					var scale = window.innerHeight / $('article').height();
-					
-					$contentClone = $('#content').clone();
-					$contentClone.attr('id', 'content2');
-					$('body').append($contentClone);
+
+					//$contentClone = $('#content').clone();
+					//$contentClone.attr('id', 'content2');
+					//$('body').append($contentClone);
 
 					$("h1").lettering();
 					$('.story .image').each(addWatcher);
 					Hyphenator.run();
 					
-					canvasWatcher = scrollMonitor.create($('.story #mapCanvas'));
-					canvasWatcher.stateChange(handle_canvasWatcher_CHANGE);
+					//canvasWatcher = scrollMonitor.create($('.story #mapCanvas'));
+					//canvasWatcher.stateChange(handle_canvasWatcher_CHANGE);
 										
 					$(window).bind('resize', resize);
 					
+					/*
 					setTimeout(function () {
 						setupScene();
 						resize();
 					}, 2000);
+					*/
+					preload_COMPLETE();
 				}
 				
 				function preload_COMPLETE() {
@@ -1126,9 +1130,9 @@ limitations under the License.
 					var width = window.innerWidth,
 						height = window.innerHeight;
 
-					renderer.setSize(width, height);
-					camera = new THREE.PerspectiveCamera(1000, width / height, 1, 10000);
-					renderer.render(scene, camera);
+					//renderer.setSize(width, height);
+					//camera = new THREE.PerspectiveCamera(1000, width / height, 1, 10000);
+					//renderer.render(scene, camera);
 					
 					$('.page').css({'height': '100vh'});
 					
