@@ -203,7 +203,7 @@ limitations under the License.
 			#cover{
 				padding: 0;
 				background-color: black;
-				background-image: url(images/cover.jpg);
+				background-image: url(images/mobile/cover.jpg);
 				background-size: contain;
 				background-position: center center;
 				background-repeat: no-repeat;
@@ -223,66 +223,66 @@ limitations under the License.
 			}
 
 			#img1{
-				background-image: url(images/img1.jpg);
+				background-image: url(images/mobile/img1.jpg);
 				background-size: cover;
 			}
 
 			#img2{
-				background-image: url(images/img2.jpg);
+				background-image: url(images/mobile/img2.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 
 			#img3{
-				background-image: url(images/img3.jpg);
+				background-image: url(images/mobile/img3.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 
 			#img4{
-				background-image: url(images/img4.jpg);
+				background-image: url(images/mobile/img4.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 			
 			#img5{
-				background-image: url(images/img5.jpg);
+				background-image: url(images/mobile/img5.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 			
 			#img6{
-				background-image: url(images/img6.jpg);
+				background-image: url(images/mobile/img6.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 			
 			#img7{
-				background-image: url(images/img7.jpg);
+				background-image: url(images/mobile/img7.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 			
 			#img8{
-				background-image: url(images/img8.jpg);
+				background-image: url(images/mobile/img8.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 			
 			#img9{
-				background-image: url(images/img9.jpg);
+				background-image: url(images/mobile/img9.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 			
 			#img10{
-				background-image: url(images/img10.jpg);
+				background-image: url(images/mobile/img10.jpg);
 				background-size: cover;
 				background-position: center;
 			}
 			
 			#img11{
-				background-image: url(images/img11.jpg);
+				background-image: url(images/mobile/img11.jpg);
 				background-size: cover;
 				background-position: center;
 			}
@@ -556,6 +556,7 @@ limitations under the License.
 				<div class="column region"></div>
 			</div>
 			<div id="mapContainer">
+				<!--
 				<div id="mapLegend">
 					<h4><div class="legend-elephant"></div>Rescue Site</h4>
 					<div>
@@ -647,6 +648,7 @@ limitations under the License.
 					
 				</div>
 				<canvas id="mapCanvas"></canvas>
+				-->
 			</div>
 			<div id="page10" class="page">
 				<div class="column region"></div>
@@ -842,303 +844,26 @@ limitations under the License.
 				function init() {
 					var scale = window.innerHeight / $('article').height();
 
-					//$contentClone = $('#content').clone();
-					//$contentClone.attr('id', 'content2');
-					//$('body').append($contentClone);
-
 					$("h1").lettering();
 					$('.story .image').each(addWatcher);
 					Hyphenator.run();
-					
-					//canvasWatcher = scrollMonitor.create($('.story #mapCanvas'));
-					//canvasWatcher.stateChange(handle_canvasWatcher_CHANGE);
 										
 					$(window).bind('resize', resize);
 					
-					/*
-					setTimeout(function () {
-						setupScene();
-						resize();
-					}, 2000);
-					*/
 					preload_COMPLETE();
 				}
 				
 				function preload_COMPLETE() {
 					$('#loader').fadeOut();
 				}
-				
-				function handle_asset_LOADED(geometry, materials) {
-					var j, e,
-						//material = new THREE.MeshFaceMaterial(materials),
-						material = new THREE.MeshLambertMaterial({color: 0xD3691B, ambient: 0xD3691B}),
-						elephantPoints = [
-							{x: 0, y: 20, z: 0},
-							{x: -7, y: 21, z: 0},
-							{x: -18.3, y: 18.24, z: 0},
-							{x: -16.9, y: 18.14, z: 0},
-							{x: -17.6, y: 17.7, z: 0},
-							{x: -17.5, y: 15.24, z: 0},
-							{x: -10, y: 12, z: 0},
-							{x: -9.3, y: 11.5, z: 0},
-							{x: -12.5, y: 10, z: 0},
-							{x: -11.5, y: 9, z: 0},
-							{x: -19.6, y: -14.35, z: 0},
-							{x: -26.1, y: -11.95, z: 0},
-							{x: -26.7, y: -11, z: 0},
-							{x: -6.6, y: -3.75, z: 0},
-							{x: 3.4, y: -18.35, z: 0},
-							{x: -1.9, y: 8.5, z: 0},
-							{x: -0.5, y: 7.75, z: 0},
-							{x: 1.6, y: 2.35, z: 0},
-							{x: 2.3, y: 1.55, z: 0},
-							{x: 2.8, y: 0.45, z: 0},
-							{x: 3.9, y: -0.35, z: 0},
-							{x: -7.2, y: 10, z: 0},
-							{x: -6.5, y: 9.25, z: 0},
-							{x: -4.5, y: 12.15},
-							{x: -4.7, y: 11.15},
-							{x: -4.7, y: 10.25},
-							{x: -2.9, y: 1.45},
-							{x: -1.7, y: 1.45},
-							{x: -3.9, y: 1.15},
-							{x: 0.8, y: -21.45},
-							{x: -0.4, y: -22.15},
-							{x: 0.5, y: -22.75},
-							{x: 1.4, y: -21.95}, 
-							{x: -3.4, y: -21.65}, 
-							{x: -4.5, y: -22.25}, 
-							{x: -5.3, y: -21.85}, 
-							{x: -6.4, y: -22.05}, 
-							{x: -6.3, y: -21.25}, 
-							{x: -7.3, y: -21.75}, 
-							{x: -7.9, y: -21.55},
-							{x: -4, y: 3.45}, 
-							{x: -5.3, y: 3.85}, 
-							{x: -5.6, y: 7.05}, 
-							{x: -4.7, y: 6.75}, 
-							{x: -4.7, y: 6.05},
-							{x: -3.9, y: 6.15}, 
-							{x: -3.5, y: 6.55}, 
-							{x: -3, y: 6.15}, 
-							{x: -5.1, y: 5.05}, 
-							{x: -4.3, y: 5.35}, 
-							{x: -3.1, y: 5.35}, 
-							{x: -3, y: 5.95}, 
-							{x: -5, y: 5.05}, 
-							{x: -4.2, y: 5.05}, 
-							{x: -3.2, y: 4.95}, 
-							{x: -3, y: 5.45}, 
-							{x: -5.4, y: 4.15}, 
-							{x: -4.1, y: 3.45},
-							{x: -14.4, y: 6.55}, 
-							{x: -13.5, y: 6.04}, 
-							{x: -15.1, y: 6.04}, 
-							{x: -13.6, y: 5.35}, 
-							{x: -12.4, y: 4.65}, 
-							{x: -11, y: 4.05}, 
-							{x: -11.7, y: 3.25}, 
-							{x: -11.7, y: 2.85}, 
-							{x: -11.1, y: 2.85}, 
-							{x: -12.7, y: 3.05}, 
-							{x: -11.9, y: 2.55}, 
-							{x: -12.3, y: 2.15},
-							{x: -9.4, y: 2.94}, 
-							{x: -9.7, y: 2.15}, 
-							{x: -8.9, y: 2.04}, 
-							{x: -9.1, y: 1.45}, 
-							{x: -9, y: 0.25}, 
-							{x: -9.8, y: -0.05}, 
-							{x: -10.4, y: -0.85}, 
-							{x: -10.2, y: 0.05}, 
-							{x: -10.3, y: 0.85},
-							{x: 5.8, y: -23.95}, 
-							{x: 7.4, y: -24.35}, 
-							{x: 9.4, y: -25.35}, 
-							{x: 8, y: -25.75}, 
-							{x: 5.2, y: -24.85}, 
-							{x: 6.1, y: -25.15}, 
-							{x: 4, y: -25.15}, 
-							{x: 3.3, y: -25.45}, 
-							{x: 3.7, y: -25.65}, 
-							{x: 5.2, y: -25.95}, 
-							{x: 2.5, y: -26.45}, 
-							{x: 0.9, y: -26.35}, 
-							{x: 2.1, y: -26.95}, 
-							{x: 2.5, y: -27.45},
-							{x: 7.2, y: -26.65},
-							{x: 6.2, y: -27.95}, 
-							{x: 7.3, y: -27.95}, 
-							{x: 7.1, y: -28.55}, 
-							{x: 5.9, y: -29.05}, 
-							{x: 6.6, y: -29.25}, 
-							{x: 5.1, y: -29.25}, 
-							{x: 4.9, y: -29.05}, 
-							{x: 5.2, y: -28.35}, 
-							{x: 0.8, y: -28.05}, 
-							{x: -0.8, y: -28.35}, 
-							{x: -0.3, y: -27.75}, 
-							{x: -1.8, y: -27.25}, 
-							{x: -2.1, y: -27.95},
-							{x: 5.1, y: -28.35} 
-						];
 
-					for (j = 0; j < materials.length; j += 1) {
-						//materials[j].morphTargets = true;
-					}
-					
-					for (j = 0; j < elephantPoints.length; j += 1) {
-						e = new THREE.MorphAnimMesh(geometry, material);
-						e.position.set(elephantPoints[j].x, elephantPoints[j].y, 0);
-						e.rotation.x = 1.5;
-						e.rotation.y = Math.random() * 3.14;
-						e.scale.set(0.5, 0.5, 0.5);
-						container.add(e);
-					}
-					
-					/*
-					elephant = new THREE.MorphAnimMesh(geometry, material);
-					elephant.position.set(-7, 21, 0);
-					elephant.rotation.x = 1.5;
-					container.add(elephant);
-					*/
-				}
-				
-				function setupScene() {
-					renderer = new THREE.WebGLRenderer({canvas: $('.story #mapCanvas')[0], antialias:true});
-					renderer.setClearColor(0xffffff, 1);
-					scene = new THREE.Scene();
-					
-					container = new THREE.Object3D();
-					container.position.set(0, 0, -50);
-					container.rotation.z = 3.14;
-					container.rotation.x = 1;
-					scene.add(container);
-					
-					var colorMap = new THREE.Texture(img1);		
-					colorMap.needsUpdate = true;
-					
-					var bumpMap = new THREE.Texture(img2);
-					bumpMap.needsUpdate = true;
-										
-					var plane = new THREE.PlaneGeometry(80, 80, 100, 100);
-					var material = new THREE.MeshPhongMaterial({ambient: 0xfffffff, color: 0xffffff, specular: 0xffffff, shininess: 0, map: colorMap, bumpMap: bumpMap, bumpScale: .5, metal: false});
-					
-					mesh = new THREE.Mesh(plane, material);
-					container.add(mesh);
-					
-					var ambientLight = new THREE.AmbientLight(0x666666);
-					scene.add(ambientLight);
-					
-					var light = new THREE.SpotLight(0xcccccc);
-					light.target = mesh;
-					light.position.set(0, 0, -1);
-					light.intensity = 0.4;
-					light.angle = 1.5;
-					light.exponent = 1;
-					light.castShadow = true;
-					scene.add(light);
-					
-					var loader = new THREE.JSONLoader();
-					loader.load('js/elephant.js', handle_asset_LOADED.bind(this));	
-					
-					preload_COMPLETE();
-					
-					//$('.story #mapCanvas').bind('click', handle_CLICK);
-					$('.story #mapCanvas').bind('mousedown', handle_MOUSEDOWN);
-					$('.story #mapCanvas').bind('mouseup', handle_MOUSEUP);					
-				}
-				
-				function handle_rightImage_CLICK() {
-					if ($(this).css('width') !== window.innerWidth + 'px') {
-						$(this).css({'width': '100vw', 'left': '0'});
-					} else {
-						$(this).css({'width': '50vw', 'left': '50rem'});
-					}
-				}
-				
-				function handle_MOUSEDOWN(e) {
-					var scale = 20,
-						_x = e.pageX / scale, 
-						_y = -(e.pageY - $('.story #mapCanvas').offset().top) / scale;
-					
-					_x -= ($('.story #mapCanvas').width() / 2) / scale;
-					_y -= - 64 + ($('.story #mapCanvas').height() / 2) / scale;
-					
-					$('.story #mapCopy').hide();
-					TweenMax.killAll();
-					//new TweenMax.to(container.position, 1, {x: _x, y: _y, z: -20, onUpdate: draw});
-					new TweenMax.to(container.rotation, 1, {x: 1, onUpdate: draw});
-				}
-				
-				function handle_MOUSEUP(e) {
-					TweenMax.killAll();
-					new TweenMax.to(container.rotation, 1, {x: 0, onUpdate: draw});
-					new TweenMax.to(container.position, 1, {x: 0, y: 0, z: -40, onUpdate: draw, onComplete: function () {
-						$('.story #mapCopy').show();
-					}});
-				}
-				
-				function handle_CLICK(e) {
-					
-					var _x = e.pageX / 10, 
-						_y = -(e.pageY - $('.story #mapCanvas').offset().top) / 10;
-					
-					_x -= ($('.story #mapCanvas').width() / 2) / 10;
-					_y -= - 64 + ($('.story #mapCanvas').height() / 2) / 10;
-					
-					/*
-					console.log("{x: " + Math.round(_x * 100) / 100 + ", y: " + Math.round(_y * 100) / 100 + "},");
-					elephant.position.set(_x, _y, 0);
-					*/
-				}
-								
-				function startScene() {
-					if (container) {
-						new TweenMax.to(container.rotation, 2, {x: 0, ease: Quad.easeOut, onUpdate: draw, 
-							onComplete: function () {
-								new TweenMax.to(container.position, 1, {z: -40, ease: Quad.easeInOut, onUpdate: draw, 
-									onComplete: function (){
-										$('.story #mapCopy').show();
-									}
-								});
-							}
-						});
-					}
-				}
-				
-				function stopScene() {
-					TweenMax.killAll();
-					try{
-						container.position.set(0, 0, -50);
-						container.rotation.z = 3.14;
-						container.rotation.x = 1;
-						$('.story #mapCopy').hide();
-					} catch(e) {
-
-					}
-					
-				}
-				
-				function draw() {
-					if (typeof(camera) != 'undefined') {
-						renderer.render(scene, camera);
-					}
-				}
-				
 				function resize() {
 					var width = window.innerWidth,
 						height = window.innerHeight;
-
-					//renderer.setSize(width, height);
-					//camera = new THREE.PerspectiveCamera(1000, width / height, 1, 10000);
-					//renderer.render(scene, camera);
 					
 					$('.page').css({'height': '100vh'});
 					
-					//console.log('resize');
 					if (window.innerWidth > 1200) {
-					//	console.log('larger..')
 						$('.right-page').css({'height': '300vh'});
 					}
 					
@@ -1158,17 +883,7 @@ limitations under the License.
 						$cover.animate({'height': '50vh'});
 					}
 				}
-				
-				function handle_canvasWatcher_CHANGE() {
-					if (canvasWatcher.isInViewport) {
-						canvasVisible = true;
-						startScene();
-					} else {
-						stopScene();
-						canvasVisible = false;
-					}
-				}
-				
+
 				function addWatcher() {
 					var $this = $(this),
 						watcher = scrollMonitor.create($this);
