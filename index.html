@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0;">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<title>Orphan Elephants</title>
 
@@ -249,6 +249,25 @@
 					background-size: cover;
 					background-position: center;
 				}
+				
+			#instructions{
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: white;
+			}
+			
+			.instructions-content{
+				margin: auto;
+				width: 500px;
+			}
+			
+			.instructions-content p{
+				text-indent: 0;
+			}
 			
 			@media screen and (max-width: 1200px) {
 				.right-page{
@@ -540,7 +559,71 @@
                 </p>
         </div>
 
+        <div id="instructions">
+            <div class="instructions-content">
+                <h2>A Peek at the Future</h2>
+                <p>
+                    This experiment showcases features that are not yet implemented by all browsers.
+                </p>
+                <p>
+                    To experience this site follow the instructions for Chrome Canary found <a href="http://html.adobe.com/webplatform/enable/">here</a>.
+                </p>
+            </div>
+        </div>
+
 		<script>
+		
+			if (checkRegionsSupport() !== true) {
+				var inst = document.getElementById('instructions');
+				inst.style.display = 'block';
+			}
+		
+			function checkRegionsSupport() {
+				var flowFromProperty = "webkitFlowFrom";
+			    var flowIntoProperty = "webkitFlowInto";
+
+			    if (!flowFromProperty || !flowIntoProperty){
+			      return false;
+			    }
+
+			    /* If CSS parsing is there, try to determine if regions actually work. */
+			    var container = document.createElement('div');
+			    var content = document.createElement('div');
+			    var region = document.createElement('div');
+
+			    /* we create a random, unlikely to be generated flow number to make sure we don't
+			       clash with anything more vanilla, like 'flow', or 'article', or 'f1' */
+			    var flowName = 'modernizr_flow_for_regions_check';
+
+			    /* First create a div with two adjacent divs inside it. The first will be the
+			       content, the second will be the region. To be able to distinguish between the two,
+			       we'll give the region a particular padding */
+			    content.innerText = 'M';
+			    container.style.cssText = 'top: 150px; left: 150px; padding: 0px;';
+			    region.style.cssText = 'width: 50px; height: 50px; padding: 42px;';
+
+			    region.style[flowFromProperty] = flowName;
+			    container.appendChild(content);
+			    container.appendChild(region);
+			    document.body.appendChild(container);
+
+			    /* Now compute the bounding client rect, before and after attempting to flow the
+			       content div in the region div. If regions are enabled, the after bounding rect
+			       should reflect the padding of the region div.*/
+			    var flowedRect, delta;
+			    var plainRect = content.getBoundingClientRect();
+
+
+			    content.style[flowIntoProperty] = flowName;
+			    flowedRect = content.getBoundingClientRect();
+
+			    delta = parseInt(flowedRect.left - plainRect.left, 10);
+			    document.body.removeChild(container);
+			    content = region = container = undefined;
+
+			    return (delta == 42);
+			}
+			
 			document.addEventListener('orientationchange', function () {
 				location.reload(); //fix for ipad
 			});
