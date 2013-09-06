@@ -10,7 +10,11 @@
 		<style>
 
 		
-			html, body{
+			html{
+								
+			}
+			
+			body{
 				margin: 0;
 				font-size: 1.1rem;
 				line-height: 1.9;
@@ -20,7 +24,7 @@
 				background: #fefefe;
 				overflow-x: hidden;
 			}
-			
+
 			p{
 				margin: 0;
 				text-indent: 2rem;
@@ -270,6 +274,25 @@
 			
 			.instructions-content p{
 				text-indent: 0;
+			}
+			
+			@media screen and (min-width: 1747px) {
+				#page11, #img7{
+					display: none;
+				}
+			}
+			
+			@media screen and (min-width: 1450px) {
+				#page12, #img8{
+					display: none;
+				}
+			}
+			
+			@media screen and (min-width: 1200px) {
+				
+				#page12, #page13, #page14, #page15, #img10, #img11{
+					display: none;
+				}
 			}
 			
 			@media screen and (max-width: 1200px) {
