@@ -904,7 +904,7 @@ and (orientation : portrait) {
 			//workaround height: auto issue on iOS
 			var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
 
-			//if (iOS === true) {
+			if (iOS === true) {
 				document.body.className = 'mobile';
 
 				var pages = document.getElementsByClassName('page');
@@ -915,12 +915,10 @@ and (orientation : portrait) {
 					}
 				}, 100);
 
-			/*
 			} else {
 				var regions = document.getElementsByClassName('region');
 				regions[regions.length - 1].className += " last";
 			}
-			*/
 
 			function addPage() {
 				var article = document.getElementById('story');
