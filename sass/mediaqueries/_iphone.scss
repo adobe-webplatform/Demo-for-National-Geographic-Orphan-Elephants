@@ -1,0 +1,94 @@
+/* iphone landscape*/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) 
+and (orientation : landscape) { 
+
+				.page{
+					max-height: 320px;
+				}
+				
+				.right-page{
+					max-height: 320px;
+				}
+
+				.half-page{
+					max-height: 160px;
+				}
+				
+				.three-quart-page{
+					height: 240px;
+				}
+				
+				.quart-page{
+					height: 80px;
+				}
+
+				.column{
+					height: 288px;
+				}
+
+				.half-column{
+					height: 144px;
+				}
+				
+				.quart-column{
+					height: 64px;
+				}
+
+				.image.right{
+					height: 320px;
+					width: auto;
+				}
+
+				.no-vert-margin{
+					height: 320px;
+				}
+			}
+
+			/* iphone portrait */
+			@media only screen 
+			and (min-device-width : 320px) 
+			and (max-device-width : 480px) 
+			and (orientation : portrait) { 
+				.page{
+					max-height: 480px;
+				}
+				
+				.right-page{
+					max-height: 480px;
+				}
+
+				.half-page{
+					max-height: 240px;
+				}
+				
+				.three-quart-page{
+					max-height: 360px;
+				}
+				
+				.quart-page{
+					max-height: 120px;
+				}
+
+				.column{
+					max-height: 432px;
+				}
+
+				.half-column{
+					max-height: 216px;
+				}
+				
+				.quart-column{
+					max-height: 96px;
+				}
+
+				.image.right{
+					max-height: 480px;
+					width: auto;
+				}
+
+				.no-vert-margin{
+					max-height: 480px;
+				}
+			}

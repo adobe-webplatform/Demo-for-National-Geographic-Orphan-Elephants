@@ -1,0 +1,96 @@
+	@media screen and (min-width: 1747px) {
+				#page11, #img7{
+					display: none;
+				}
+			}
+			
+			@media screen and (min-width: 1450px) {
+				#page12, #img8{
+					display: none;
+				}
+			}
+			
+			@media screen and (min-width: 1200px) {
+				
+				#page12, #page13, #page14, #page15, #img10, #img11{
+					display: none;
+				}
+			}
+			
+			@media screen and (max-width: 1200px) {
+				.right-page{
+					padding: 0;
+					height: 100vh;
+				}
+				
+				.right-page .image{
+					position: static;
+					width: 100%;
+				}
+
+				.right-page .column{
+					display: none;
+				}
+				
+				.right-page-after, .right-page-before{
+					display: block;
+				}
+				
+				.image.right{
+					top: 0;
+					margin-top: 0;
+				}
+				
+				html{
+					font-size: .9rem;
+				}
+			}
+			
+			@media screen and (max-width: 1050px) {
+				aside{
+					display: none;
+				}
+			}
+			
+			@media screen and (max-width: 700px) {
+				.column, .half-column, .quart-column{
+					width: auto;
+					max-width: 30em;
+					padding: 1rem;
+				}
+				
+				h1{
+					font-size: 4rem;
+					padding: 1rem;
+				}
+			}
+
+			@media screen and (min-height: 1000px) {
+				#img11, #page16{
+					display: none;	
+				}
+			}
+
+			@media screen and (min-height: 1060px) {
+				#page15{
+					display: none;
+				}
+			}
+
+			@media screen and (min-height: 1110px) {
+				#img9, #page14, #img10{
+					display: none;
+				}
+			}
+
+			@media screen and (min-height: 1270px) {
+				#img9, #page14, #img10{
+					display: none;
+				}
+			}
+
+			@media screen and (min-height: 1395px) {
+				#img8, #img11, #img10, #page12, #page13{
+					display: none;
+				}
+			}

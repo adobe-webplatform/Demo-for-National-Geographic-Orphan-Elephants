@@ -1,0 +1,204 @@
+			
+			body{
+				margin: 0;
+				font-size: 1.1rem;
+				line-height: 1.9;
+				text-align: justify;
+				font-family: merriweather, serif;
+				color: #333;
+				background: #fefefe;
+				overflow-x: hidden;
+			}
+
+			p{
+				margin: 0;
+				text-indent: 2rem;
+			}
+			
+			p.first{
+				text-indent: 0;
+			}
+			
+			b{
+				display: inline-block;
+				margin-top: 2rem;
+				margin-left: -4rem;
+				text-transform: uppercase;
+				font-size: 1rem;
+			}
+			
+			h1{
+				margin: 0;
+				padding: 1rem .5rem;
+				padding-left: 10rem;
+				font-weight: 100;
+				font-size: 6rem;
+				line-height: 1.2;
+				color: white;
+				text-shadow: 0px 0px 20px rgba(0, 0, 0, 1);
+			}
+			
+			h3{
+				margin-top: 0;
+			}
+			
+			h4{
+				margin: 0;
+				display: inline-block;
+				font-size: 1rem;
+			}
+			
+			aside{
+				position: absolute;
+				top: 1rem;
+				margin-left: 50rem;
+				padding-top: 2rem;
+				font-size: .8rem;
+				width: 15rem;
+				text-align: left;
+			}
+			
+			figure{
+				padding: 0;
+				margin: 0;
+			}
+			
+			.char3{
+				margin-left: -.15em;
+			}
+			
+			.byline{
+				margin: 2rem 0;
+				font-family: Arial, Verdana, Helvetica, sans-serif;
+				text-transform: uppercase;
+				font-size: 1rem;
+				font-weight: bold;
+			}
+			
+			.subtitle{
+				color: rgb(196, 182, 127);
+			}
+
+			.region{
+				-webkit-flow-from: story;
+				-webkit-widows: 3;
+				-orphans-widows: 3;
+			}
+			
+			.page{
+				position: relative;
+				height: 100vh;
+				padding: 1rem;
+				box-sizing: border-box;
+			}
+			
+			.right-page{
+				padding-top: 0;
+				padding-bottom: 0;
+				height: 300vh;
+			}
+			
+			.right-page .column{
+				/*height: 300vh;*/
+				height: 290vh;
+			}
+
+			.half-page{
+				position: relative;
+				height: 50vh;
+				padding: 1rem;
+				box-sizing: border-box;
+			}
+			
+			.three-quart-page{
+				position: relative;
+				height: 75vh;
+				padding: 1rem;
+				box-sizing: border-box;			
+			}
+			
+			.quart-page{
+				position: relative;
+				height: 25vh;
+				min-height: 10rem;
+				padding: 1rem;
+				box-sizing: border-box;
+			}
+
+			.column{
+				height: 90vh;
+				width: 35rem;
+				padding-left: 10rem;
+				padding-top: 2rem;
+				padding-bottom: 2rem;
+			}
+
+			.half-column{
+				height: 45vh;
+				width: 35rem;
+				padding-left: 10rem;
+			}
+			
+			.quart-column{
+				height: 20vh;
+				width: 35rem;
+				padding-left: 10rem;
+			}
+
+			.last{
+				height: auto;
+			}
+
+			.image{
+				background: rgba(0, 0, 255, 0.5);
+			}
+			
+			.image.right{
+				position: absolute;
+				left: 50rem;
+				top: 50%;
+				margin-top: -50vh;
+				height: 100vh;
+				width: 50vw;
+			}
+
+			.no-vert-margin{
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: 0;
+				padding-bottom: 0;
+				height: 100vh;
+			}
+			
+			#content{
+				-webkit-flow-into: story;
+			}
+			
+			#cover{
+				padding: 0;
+				background-color: black;
+				background-size: contain;
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				overflow: hidden;
+			}
+				
+			#instructions{
+				display: none;
+				top: 0;
+				left: 0;
+				width: 100%;
+				background: white;
+			}
+			
+			.instructions-content{
+				margin: auto;
+				max-width: 500px;
+				padding: 1rem;
+				text-align: left;
+			}
+			
+			.instructions-content p{
+				text-indent: 0;
+			}
