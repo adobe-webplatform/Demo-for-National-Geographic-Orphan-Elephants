@@ -163,7 +163,7 @@
 			.last{
 				height: auto;
 			}
-			
+
 			.image{
 				background: rgba(0, 0, 255, 0.5);
 			}
@@ -175,6 +175,14 @@
 				margin-top: -50vh;
 				height: 100vh;
 				width: 50vw;
+			}
+
+			.no-vert-margin{
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: 0;
+				padding-bottom: 0;
+				height: 100vh;
 			}
 			
 			#content{
@@ -257,6 +265,54 @@
 					background-position: center;
 				}
 				
+			.mobile #cover{
+				background-image: url(images/mobile/cover.jpg);
+			}
+			
+			.mobile #img1{
+					background-image: url(images/mobile/img1.jpg);
+				}
+
+			.mobile #img2{
+					background-image: url(images/mobile/img2.jpg);
+				}
+
+			.mobile #img3{
+					background-image: url(images/mobile/img3.jpg);
+				}
+
+			.mobile #img4{
+					background-image: url(images/mobile/img4.jpg);
+				}
+
+			.mobile #img5{
+					background-image: url(images/mobile/img5.jpg);
+				}
+
+			.mobile #img6{
+					background-image: url(images/mobile/img6.jpg);
+				}
+
+			.mobile #img7{
+					background-image: url(images/mobile/img7.jpg);
+				}
+
+			.mobile #img8{
+					background-image: url(images/mobile/img8.jpg);
+				}
+
+			.mobile #img9{
+					background-image: url(images/mobile/img9.jpg);
+				}
+
+			.mobile #img10{
+					background-image: url(images/mobile/img10.jpg);
+				}
+
+			.mobile #img11{
+					background-image: url(images/mobile/img11.jpg);
+				}
+
 			#instructions{
 				display: none;
 				top: 0;
@@ -372,6 +428,196 @@
 					display: none;
 				}
 			}
+
+			/* iphone landscape*/
+			@media only screen 
+			and (min-device-width : 320px) 
+			and (max-device-width : 480px) 
+			and (orientation : landscape) { 
+
+				.page{
+					max-height: 320px;
+				}
+				
+				.right-page{
+					max-height: 320px;
+				}
+
+				.half-page{
+					max-height: 160px;
+				}
+				
+				.three-quart-page{
+					height: 240px;
+				}
+				
+				.quart-page{
+					height: 80px;
+				}
+
+				.column{
+					height: 288px;
+				}
+
+				.half-column{
+					height: 144px;
+				}
+				
+				.quart-column{
+					height: 64px;
+				}
+
+				.image.right{
+					height: 320px;
+					width: auto;
+				}
+
+				.no-vert-margin{
+					height: 320px;
+				}
+			}
+
+			/* iphone portrait */
+			@media only screen 
+			and (min-device-width : 320px) 
+			and (max-device-width : 480px) 
+			and (orientation : portrait) { 
+				.page{
+					max-height: 480px;
+				}
+				
+				.right-page{
+					max-height: 480px;
+				}
+
+				.half-page{
+					max-height: 240px;
+				}
+				
+				.three-quart-page{
+					max-height: 360px;
+				}
+				
+				.quart-page{
+					max-height: 120px;
+				}
+
+				.column{
+					max-height: 432px;
+				}
+
+				.half-column{
+					max-height: 216px;
+				}
+				
+				.quart-column{
+					max-height: 96px;
+				}
+
+				.image.right{
+					max-height: 480px;
+					width: auto;
+				}
+
+				.no-vert-margin{
+					max-height: 480px;
+				}
+			}
+
+			/* ipad landscape */
+			@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+				.page{
+					max-height: 768px;
+				}
+				
+				.right-page{
+					max-height: 768px;
+				}
+
+				.half-page{
+					max-height: 384px;
+				}
+				
+				.three-quart-page{
+					max-height: 576px;
+				}
+				
+				.quart-page{
+					max-height: 192px;
+				}
+
+				.column{
+					max-height: 691px;
+				}
+
+				.half-column{
+					max-height: 345px;
+				}
+				
+				.quart-column{
+					max-height: 153px;
+				}
+
+				.image.right{
+					max-height: 768px;
+					width: auto;
+				}
+
+				.no-vert-margin{
+					max-height: 768px;
+				}
+			}
+
+			/* ipad portrait */
+			@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+				.page{
+					max-height: 1024px;
+				}
+				
+				.right-page{
+					max-height: 1024px;
+				}
+
+				.half-page{
+					max-height: 512px;
+				}
+				
+				.three-quart-page{
+					max-height: 768px;
+				}
+				
+				.quart-page{
+					max-height: 256px;
+				}
+
+				.column{
+					max-height: 921px;
+				}
+
+				.half-column{
+					max-height: 460px;
+				}
+				
+				.quart-column{
+					max-height: 204px;
+				}
+
+				.image.right{
+					max-height: 1024px;
+					width: auto;
+				}
+
+				.no-vert-margin{
+					max-height: 1024px;
+				}
+			}
+
 		</style>
 	</head>
 	<body>
@@ -433,7 +679,7 @@
 			</div>
 			<div id="img6" class="page image">
 				<figcaption></figcaption>
-			</div>
+			</div>			
 			<div id="page9" class="page">
 				<div class="column region"></div>
 			</div>
@@ -446,7 +692,7 @@
 			<div id="img8" class="page image"></div>
 			<div id="page12" class="page right-page-before">
 				<div class="column region"></div>
-			</div>
+			</div>			
 			<div id="page13" class="page right-page">
 				<div class="column region"></div>
 				<div id="img9" class="image right"></div>
@@ -462,9 +708,9 @@
 			</div>
 			<div id="img11" class="page image">
 				<figcaption></figcaption>
-			</div>
+			</div>			
 			<div id="page16" class="page">
-				<div class="column region last"></div>
+				<div class="column region"></div>
 			</div>
 		</article>
 		
@@ -592,6 +838,7 @@
         </div>
 
 		<script>
+			
 			document.body.onload = function () {
 				if (checkRegionsSupport() !== true) {
 					var story = document.getElementById('story');
@@ -603,7 +850,7 @@
 					content.style.display = 'none';
 					
 				}
-				
+
 				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -653,6 +900,48 @@
 			document.addEventListener('orientationchange', function () {
 				location.reload(); //fix for ipad
 			});
+
+			//workaround height: auto issue on iOS
+			var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
+
+			//if (iOS === true) {
+				document.body.className = 'mobile';
+
+				var pages = document.getElementsByClassName('page');
+				var namedFlow = document.webkitGetNamedFlows()[0];
+				setTimeout(function () {
+					if (namedFlow.overset) {
+						addPage();
+					}
+				}, 100);
+
+			/*
+			} else {
+				var regions = document.getElementsByClassName('region');
+				regions[regions.length - 1].className += " last";
+			}
+			*/
+
+			function addPage() {
+				var article = document.getElementById('story');
+				var namedFlow = document.webkitGetNamedFlows()[0];
+
+				var page = document.createElement('div');
+				page.className = 'page no-vert-margin';
+
+				var region = document.createElement('div');
+				region.className = 'column region no-vert-margin';
+
+				page.appendChild(region);
+				article.appendChild(page);
+
+				setTimeout(function () {
+					if (namedFlow.overset) {
+						addPage();
+					} 
+				}, 100)
+			}
+
 		</script>
 	</body>
 </html>
