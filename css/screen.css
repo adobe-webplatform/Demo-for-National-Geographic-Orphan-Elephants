@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 17, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -142,7 +142,7 @@ figure {
 
 /* line 66, ../sass/_main.scss */
 .char3 {
-  margin-left: -0.15em;
+  margin-left: -.15em;
 }
 
 /* line 70, ../sass/_main.scss */
@@ -162,11 +162,12 @@ figure {
 /* line 82, ../sass/_main.scss */
 .region {
   -webkit-flow-from: story;
+  flow-from: story;
   -webkit-widows: 3;
   -orphans-widows: 3;
 }
 
-/* line 88, ../sass/_main.scss */
+/* line 89, ../sass/_main.scss */
 .page {
   position: relative;
   height: 100vh;
@@ -174,20 +175,20 @@ figure {
   box-sizing: border-box;
 }
 
-/* line 95, ../sass/_main.scss */
+/* line 96, ../sass/_main.scss */
 .right-page {
   padding-top: 0;
   padding-bottom: 0;
   height: 300vh;
 }
 
-/* line 101, ../sass/_main.scss */
+/* line 102, ../sass/_main.scss */
 .right-page .column {
   /*height: 300vh;*/
   height: 290vh;
 }
 
-/* line 106, ../sass/_main.scss */
+/* line 107, ../sass/_main.scss */
 .half-page {
   position: relative;
   height: 50vh;
@@ -195,7 +196,7 @@ figure {
   box-sizing: border-box;
 }
 
-/* line 113, ../sass/_main.scss */
+/* line 114, ../sass/_main.scss */
 .three-quart-page {
   position: relative;
   height: 75vh;
@@ -203,7 +204,7 @@ figure {
   box-sizing: border-box;
 }
 
-/* line 120, ../sass/_main.scss */
+/* line 121, ../sass/_main.scss */
 .quart-page {
   position: relative;
   height: 25vh;
@@ -212,7 +213,7 @@ figure {
   box-sizing: border-box;
 }
 
-/* line 128, ../sass/_main.scss */
+/* line 129, ../sass/_main.scss */
 .column {
   height: 90vh;
   width: 35rem;
@@ -221,31 +222,31 @@ figure {
   padding-bottom: 2rem;
 }
 
-/* line 136, ../sass/_main.scss */
+/* line 137, ../sass/_main.scss */
 .half-column {
   height: 45vh;
   width: 35rem;
   padding-left: 10rem;
 }
 
-/* line 142, ../sass/_main.scss */
+/* line 143, ../sass/_main.scss */
 .quart-column {
   height: 20vh;
   width: 35rem;
   padding-left: 10rem;
 }
 
-/* line 148, ../sass/_main.scss */
+/* line 149, ../sass/_main.scss */
 .last {
   height: auto;
 }
 
-/* line 152, ../sass/_main.scss */
+/* line 153, ../sass/_main.scss */
 .image {
   background: rgba(0, 0, 255, 0.5);
 }
 
-/* line 156, ../sass/_main.scss */
+/* line 157, ../sass/_main.scss */
 .image.right {
   position: absolute;
   left: 50rem;
@@ -255,7 +256,7 @@ figure {
   width: 50vw;
 }
 
-/* line 165, ../sass/_main.scss */
+/* line 166, ../sass/_main.scss */
 .no-vert-margin {
   margin-top: 0;
   margin-bottom: 0;
@@ -264,12 +265,13 @@ figure {
   height: 100vh;
 }
 
-/* line 173, ../sass/_main.scss */
+/* line 174, ../sass/_main.scss */
 #content {
   -webkit-flow-into: story;
+  flow-into: story;
 }
 
-/* line 177, ../sass/_main.scss */
+/* line 179, ../sass/_main.scss */
 #cover {
   padding: 0;
   background-color: black;
@@ -280,7 +282,7 @@ figure {
   overflow: hidden;
 }
 
-/* line 187, ../sass/_main.scss */
+/* line 189, ../sass/_main.scss */
 #instructions {
   display: none;
   top: 0;
@@ -289,7 +291,7 @@ figure {
   background: white;
 }
 
-/* line 195, ../sass/_main.scss */
+/* line 197, ../sass/_main.scss */
 .instructions-content {
   margin: auto;
   max-width: 500px;
@@ -297,7 +299,7 @@ figure {
   text-align: left;
 }
 
-/* line 202, ../sass/_main.scss */
+/* line 204, ../sass/_main.scss */
 .instructions-content p {
   text-indent: 0;
 }
