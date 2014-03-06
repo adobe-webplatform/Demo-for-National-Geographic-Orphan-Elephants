@@ -1,14 +1,25 @@
 			document.body.onload = function () {
-				if (checkRegionsSupport() !== true) {
-					var story = document.getElementById('story');
-					var content = document.getElementById('content');
-					
-					var inst = document.getElementById('instructions');
-					inst.style.display = 'block';
-					story.style.display = 'none';
-					content.style.display = 'none';
-					
-				}
+				var regionsSupported = !!checkRegionsSupport();
+
+				// Check for CSS Regions support
+			    if (!regionsSupported) {
+			        cssRegions.enablePolyfill();
+			    }
+
+			    function installRegionsAliases() {
+			        var unprefixedValue = Document.prototype.getNamedFlows;
+			        Document.prototype.getNamedFlows = unprefixedValue || Document.prototype.webkitGetNamedFlows;
+			      
+			      if (!regionsSupported) {
+			        window.REGION_LAYOUT_UPDATE_EVENT = "regionlayoutupdate";
+			        window.REGION_OVERSET_CHANGE_EVENT = "regionoversetchange";
+			      } else {
+			        window.REGION_LAYOUT_UPDATE_EVENT = "webkitregionlayoutupdate";
+			        window.REGION_OVERSET_CHANGE_EVENT = "webkitregionoversetchange";
+			      }
+			    }
+
+			    installRegionsAliases();
 
 				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -67,7 +78,7 @@
 				document.body.className = 'mobile';
 
 				var pages = document.getElementsByClassName('page');
-				var namedFlow = document.webkitGetNamedFlows()[0];
+				var namedFlow = document.getNamedFlows()[0];
 				setTimeout(function () {
 					if (namedFlow.overset) {
 						addPage();
@@ -81,7 +92,7 @@
 
 			function addPage() {
 				var article = document.getElementById('story');
-				var namedFlow = document.webkitGetNamedFlows()[0];
+				var namedFlow = document.getNamedFlows()[0];
 
 				var page = document.createElement('div');
 				page.className = 'page no-vert-margin';

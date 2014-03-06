@@ -81,6 +81,7 @@
 
 			.region{
 				-webkit-flow-from: story;
+				flow-from: story;
 				-webkit-widows: 3;
 				-orphans-widows: 3;
 			}
@@ -172,6 +173,7 @@
 			
 			#content{
 				-webkit-flow-into: story;
+				flow-into: story;
 			}
 			
 			#cover{
